@@ -79,8 +79,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
+    //determine if the project is deployed or running locally
+    const isLocal = process.env.NODE_ENV === "development";
+    const apiEndpoint = isLocal
+      ? "http://localhost:3000"
+      : "https://doc-extraction.vercel.app";
+
     const pdfResp = await fetch(
-      `http://localhost:3000/factsheets/${req.body.filename}`
+      `${apiEndpoint}/factsheets/${req.body.filename}`
     ).then((response) => response.arrayBuffer());
 
     const result1 = await model.generateContent([
