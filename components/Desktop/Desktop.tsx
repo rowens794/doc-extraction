@@ -115,10 +115,9 @@ const Desktop = () => {
     for (const fileToProcess of filesToProcess) {
       //determine if the project is deployed or running locally
       const isLocal = process.env.NODE_ENV === "development";
-      console.log("isLocal", isLocal);
       const apiEndpoint = isLocal
         ? "http://localhost:3000"
-        : "https://doc-extraction.vercel.app/";
+        : "https://doc-extraction.vercel.app";
 
       try {
         const response = await fetch(`${apiEndpoint}/api/extractdata`, {
